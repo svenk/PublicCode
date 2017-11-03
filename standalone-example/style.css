@@ -1,0 +1,9 @@
+/* This is a static file which is exposed by the code
+   viewer. Since you can decide on your own which files
+   you want to register, you have full control over
+   published files. */
+
+/* just some dummy CSS. */
+body {
+  font-family: Arial;
+}

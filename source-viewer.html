@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Website introspection: {{current_file.basename}} - Sven Köppel am Institut für theoretische Physik ITP/FIAS, Uni Frankfurt{% endblock %}
+
+
+{% block main_column %}
+	<ul class="nav nav-horizontal">
+		{% for num, file in files %}
+		<li{{ active(num == current_id) }}><a href="{{ file.link }}">{{ file.basename }}</a>
+		{% endfor %}
+	</ul>
+
+	<div class="panel panel-teaser">
+		<div class="panel-header">
+			<h1>View the code of <em>{{ current_file.basename }}</em></h1>
+			<p>located at <tt>{{ current_file._filename }}</tt>
+		</div>
+		<div class="panel-body">
+			{% if current_file.error %}
+				<b>Error:</b> {{ current_file.error }}
+			{% endif %}
+
+			{{ current_file.code|raw }}
+		</div>
+	</div>
+{% endblock main_column %}
+
+{% block sidebar %}
+	<div class="panel panel-sidebar">
+		<h2>Introspection</h2>
+		<div class="panel-body">
+			<span class="caret"></span>
+			<p>This website allows introspection at a high level. While it is
+			<a href="/~koeppel/src/about">built with Twig, Less and PHP</a>, you can see
+			almost every twig and PHP source code.
+
+
+			<ul class="icons">
+				{% if page_url %}
+				<li><a href="{{ page_url }}"><i></i> See original page</a>
+				{% endif %}
+
+			<!--
+				<li><a href="https://itp.uni-frankfurt.de/~koeppel/"><i></i> new homepage</a>
+				<li><a href="https://fias.uni-frankfurt.de/~koeppel/"><i></i> mid old homepage (2013-14)</a>
+				<li><a href="https://itp.uni-frankfurt.de/~koeppel/old"><i></i> Really old homepage (2011-12)</a>
+			</ul>
+			-->
+		</div>
+	</div>
+
+	<div class="panel panel-sidebar">
+		<h2>Why?</h2>
+		<div class="panel-body">
+			<span class="caret"></span>
+			<p>The philosohpy of making the source code public is called
+			<a href="http://en.wikipedia.org/wiki/Open_source">Open source</a>.
+			This website is probably even beyond as the code shown here is the one currently driving
+			the website (instead of a repository).
+		</div>
+	</div>
+
+	{% if handler %}
+	<div class="panel panel-sidebar">
+		<h2>Tracing the invoker</h2>
+		<div class="panel-body">
+			<span class="caret"></span>
+			<b>{{ handler }}</b>.
+		</div>
+	</div>
+	{% endif %}
+{% endblock sidebar %}
+
